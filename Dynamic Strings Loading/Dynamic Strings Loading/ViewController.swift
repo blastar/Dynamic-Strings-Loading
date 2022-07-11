@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     var currentBundle = Bundle.main
     
     static let bundleName = "LiveLocalizable.bundle"
+    static let localizableName = "Localizable.nocache"
     
     let manager = FileManager.default
     lazy var bundlePath: URL = {
@@ -39,12 +40,20 @@ class ViewController: UIViewController {
         loadStrings(res)
     }
     
-    func update() {
-        print("currentBundle \(currentBundle)")
+    @IBAction func load2nd(_ sender: Any) {
+        let res = LangResource(langEN: "https://gist.github.com/blastar/19d8ef69f93a9709d6f2bc8869b52ee8/raw/163679993f463e26206cbb27963cf4d022c14b97/gistfile1.txt", langES: "https://gist.github.com/blastar/654badaf116f1559ccc907a4441c87fb/raw/948242f696b049a93c6de0644c73f8bacb9fa1a1/gistfile1.txt", langDE: "https://gist.github.com/blastar/6d5bd77b9f3fb7dfe64d8e5b71290edf/raw/34282a6293bb6fccd8605e9d8ec5b373e0263d21/gistfile1.txt")
+        loadStrings(res)
+    }
 
-        label1.text = NSLocalizedString("label1", tableName: "", bundle: currentBundle, value: "", comment: "")
-        label2.text = NSLocalizedString("label2", tableName: "", bundle: currentBundle, value: "", comment: "")
-        label3.text = NSLocalizedString("label3", tableName: "", bundle: currentBundle, value: "", comment: "")
+    func update() {
+        print("update currentBundle \(currentBundle) \(currentBundle.localizedString(forKey: "label1", value: nil, table: nil))")
+        var tableName: String? = nil
+        if currentBundle != Bundle.main {
+            tableName = ViewController.localizableName
+        }
+        label1.text = NSLocalizedString("label1", tableName: tableName, bundle: currentBundle, value: "", comment: "")
+        label2.text = NSLocalizedString("label2", tableName: tableName, bundle: currentBundle, value: "", comment: "")
+        label3.text = NSLocalizedString("label3", tableName: tableName, bundle: currentBundle, value: "", comment: "")
     }
     
     func setCurrentBundle(forLanguage: String) {
@@ -53,7 +62,7 @@ class ViewController: UIViewController {
         } catch {
             currentBundle = Bundle(path: getPathForLocalLanguage(language: "en"))!
         }
-        print("currentBundle \(currentBundle)")
+        print("setCurrentBundle currentBundle \(currentBundle)")
     }
     
     func getPathForLocalLanguage(language: String) -> String {
@@ -82,7 +91,7 @@ class ViewController: UIViewController {
                     })!
                     for case let fileURL as URL in enumerator2 {
                         _ = try fileURL.resourceValues(forKeys: Set(resourceKeys))
-                        if fileURL.lastPathComponent == "Localizable.strings" {
+                        if fileURL.lastPathComponent == ViewController.localizableName + ".strings" {
                             return Bundle(url: folderURL)!
                         }
                     }
@@ -122,7 +131,7 @@ class ViewController: UIViewController {
                     }
                     let textDE = String(decoding: dataResponse, as: UTF8.self)
           
-                    try? self?.writeToBundle(en: textEN, es: textES, de: textDE)
+                    _ = try? self?.writeToBundle(en: textEN, es: textES, de: textDE)
                     
                     DispatchQueue.main.async { [weak self] in
                         let locale = NSLocale.current.languageCode
@@ -153,7 +162,7 @@ class ViewController: UIViewController {
         if manager.fileExists(atPath: langPathEN.path) == false {
             try manager.createDirectory(at: langPathEN, withIntermediateDirectories: true, attributes: [FileAttributeKey.protectionKey : FileProtectionType.complete])
         }
-        let filePathEN = langPathEN.appendingPathComponent("Localizable.strings")
+        let filePathEN = langPathEN.appendingPathComponent(ViewController.localizableName + ".strings")
         let dataEN = en.data(using: .utf32)
         manager.createFile(atPath: filePathEN.path, contents: dataEN, attributes: [FileAttributeKey.protectionKey : FileProtectionType.complete])
         
@@ -161,7 +170,7 @@ class ViewController: UIViewController {
         if manager.fileExists(atPath: langPathES.path) == false {
             try manager.createDirectory(at: langPathES, withIntermediateDirectories: true, attributes: [FileAttributeKey.protectionKey : FileProtectionType.complete])
         }
-        let filePathES = langPathES.appendingPathComponent("Localizable.strings")
+        let filePathES = langPathES.appendingPathComponent(ViewController.localizableName + ".strings")
         let dataES = es.data(using: .utf32)
         manager.createFile(atPath: filePathES.path, contents: dataES, attributes: [FileAttributeKey.protectionKey : FileProtectionType.complete])
         
@@ -169,11 +178,11 @@ class ViewController: UIViewController {
         if manager.fileExists(atPath: langPathDE.path) == false {
             try manager.createDirectory(at: langPathDE, withIntermediateDirectories: true, attributes: [FileAttributeKey.protectionKey : FileProtectionType.complete])
         }
-        let filePathDE = langPathDE.appendingPathComponent("Localizable.strings")
+        let filePathDE = langPathDE.appendingPathComponent(ViewController.localizableName + ".strings")
         let dataDE = de.data(using: .utf32)
         manager.createFile(atPath: filePathDE.path, contents: dataDE, attributes: [FileAttributeKey.protectionKey : FileProtectionType.complete])
 
-        
+        print("writeToBundle \(bundlePath)")
         let localBundle = Bundle(url: bundlePath)!
         return localBundle
     }

@@ -55,6 +55,18 @@
                                     <action selector="load1st:" destination="BYZ-38-t0r" eventType="touchUpInside" id="B6t-E6-TEW"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EfA-oj-OqL">
+                                <rect key="frame" x="216" y="235" width="150" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="I8S-0Y-ef3"/>
+                                    <constraint firstAttribute="width" constant="150" id="IJm-bf-wJK"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Load strings"/>
+                                <connections>
+                                    <action selector="load2nd:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uoD-Qq-6cg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -63,6 +75,7 @@
                             <constraint firstItem="0ew-V2-ufq" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="32" id="DE8-O3-qwG"/>
                             <constraint firstItem="0ew-V2-ufq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="48" id="FQG-h1-Bfj"/>
                             <constraint firstItem="nIf-0b-u5s" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="48" id="Irl-Tm-2oE"/>
+                            <constraint firstItem="EfA-oj-OqL" firstAttribute="centerY" secondItem="aUN-MR-KGG" secondAttribute="centerY" id="PLo-5B-HFM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="nIf-0b-u5s" secondAttribute="trailing" constant="48" id="W9d-Iy-jVQ"/>
                             <constraint firstItem="nIf-0b-u5s" firstAttribute="top" secondItem="P0f-Vt-1rH" secondAttribute="bottom" constant="24" id="aek-tz-Gjq"/>
                             <constraint firstItem="aUN-MR-KGG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="48" id="cCh-dS-E9s"/>
@@ -70,6 +83,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="P0f-Vt-1rH" secondAttribute="trailing" constant="48" id="ck4-aa-3d0"/>
                             <constraint firstItem="P0f-Vt-1rH" firstAttribute="top" secondItem="0ew-V2-ufq" secondAttribute="bottom" constant="24" id="k37-Zw-Uez"/>
                             <constraint firstItem="aUN-MR-KGG" firstAttribute="top" secondItem="nIf-0b-u5s" secondAttribute="bottom" constant="48" id="ktO-gS-SLR"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="EfA-oj-OqL" secondAttribute="trailing" constant="48" id="ugj-ZT-Wcv"/>
                         </constraints>
                     </view>
                     <connections>
